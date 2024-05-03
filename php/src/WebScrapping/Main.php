@@ -71,6 +71,32 @@ class Main {
       Cell::fromValue('Author 20'),
       Cell::fromValue('Author 20 Institution'),
     ];
+
+    # Spreadsheet content
+    $rowType = new Row($header);
+    $writer->addRow($rowType);
+    # Filling the first 3 collums
+    foreach($data as $paper) {
+      $row = new Row([
+        Cell::fromValue($paper->id),
+        Cell::fromValue($paper->title),
+        Cell::fromValue($paper->type),
+      ]);
+
+      # Filling author columns and author institution
+      $authorContent = [];
+      foreach($paper->authors as $author) {
+        $authorContent[] = $author->name;
+        $authorContent[] = $author->institution;
+      }
+
+      # Adding the struct to the spreadsheet
+      $row = new Row(array_merge($row->getCells(), array_map(fn($value) => Cell::fromValue($value), $authorContent)));
+
+      $writer->addRow($row);
+    }
+
+    $writer->close();
   }
 
 }
