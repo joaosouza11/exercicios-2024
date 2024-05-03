@@ -33,4 +33,13 @@ class Scrapper {
       $title = $xpath->query($titleXPath, $node)->item(0)->nodeValue;
       $type = $xpath->query($typeXPath, $node)->item(0)->nodeValue;
 
-}
+      # Declaring empty because we need a loop to verify and fill if the item has more than 1 author
+      $authors = [];
+      $authorsNodes = $xpath->query($authorXPath, $node);
+
+      foreach($authorsNodes as $authorNode) {
+        $author = $authorNode->nodeValue;
+        $institution = $authorNode->getAttribute('title');
+        # Instance with type Person to fill the authors array
+        $authors[] = new Person($author, $institution);
+      }
