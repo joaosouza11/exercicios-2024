@@ -28,17 +28,9 @@ class Scrapper {
     $paperNodes = $xpath->query($paperXPath);
     $paperList = [];
 
-    return [
-      new Paper(
-        123,
-        'The Nobel Prize in Physiology or Medicine 2023',
-        'Nobel Prize',
-        [
-          new Person('Katalin Karikó', 'Szeged University'),
-          new Person('Drew Weissman', 'University of Pennsylvania'),
-        ]
-      ),
-    ];
-  }
+    foreach ($paperNodes as $node) {
+      $id = $xpath->query($idXPath, $node)->item(0)->nodeValue;
+      $title = $xpath->query($titleXPath, $node)->item(0)->nodeValue;
+      $type = $xpath->query($typeXPath, $node)->item(0)->nodeValue;
 
 }
