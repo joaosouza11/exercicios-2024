@@ -20,8 +20,10 @@ class Main {
 
     $data = (new Scrapper())->scrap($dom);
 
-    // Write your logic to save the output file bellow.
-    print_r($data);
+    # Declaring an object of OpenSpout library
+    $writer = new Writer();
+    # Path where the spreadsheet will be saved
+    $writer->openToFile(__DIR__ . '/../../assets/papersData.xlsx');
   }
 
 }
