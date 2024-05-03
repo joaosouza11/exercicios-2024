@@ -23,6 +23,11 @@ class Scrapper {
     $titleXPath = ".//h4[@class='my-xs paper-title']";
     $typeXPath = ".//div[@class='tags mr-sm']";
     $authorXPath = ".//div[@class='authors']/span";
+
+    #Declaring a DOMNodeList object
+    $paperNodes = $xpath->query($paperXPath);
+    $paperList = [];
+
     return [
       new Paper(
         123,
