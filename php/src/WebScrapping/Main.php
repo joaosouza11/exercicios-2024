@@ -2,10 +2,9 @@
 
 namespace Chuva\Php\WebScrapping;
 
-use OpenSpout\Writer\XLSX\Writer;
 use OpenSpout\Common\Entity\Cell;
 use OpenSpout\Common\Entity\Row;
-
+use OpenSpout\Writer\XLSX\Writer;
 /**
  * Runner for the Webscrapping exercice.
  */
@@ -20,12 +19,12 @@ class Main {
 
     $data = (new Scrapper())->scrap($dom);
 
-    # Declaring an object of OpenSpout library
+    // Declaring an object of OpenSpout library
     $writer = new Writer();
-    # Path where the spreadsheet will be saved
+    // Path where the spreadsheet will be saved
     $writer->openToFile(__DIR__ . '/../../assets/papersData.xlsx');
 
-    # Spreadheet header, with a max num of authors in a paper = 20
+    // Spreadheet header, with a max num of authors in a paper = 20
     $header = [
       Cell::fromValue('ID'),
       Cell::fromValue('Title'),
@@ -72,25 +71,25 @@ class Main {
       Cell::fromValue('Author 20 Institution'),
     ];
 
-    # Spreadsheet content
+    // Spreadsheet content
     $rowType = new Row($header);
     $writer->addRow($rowType);
-    # Filling the first 3 collums
-    foreach($data as $paper) {
+    // Filling the first 3 collums
+    foreach ($data as $paper) {
       $row = new Row([
         Cell::fromValue($paper->id),
         Cell::fromValue($paper->title),
         Cell::fromValue($paper->type),
       ]);
 
-      # Filling author columns and author institution
+      // Filling author columns and author institution
       $authorContent = [];
-      foreach($paper->authors as $author) {
+      foreach ($paper->authors as $author) {
         $authorContent[] = $author->name;
         $authorContent[] = $author->institution;
       }
 
-      # Adding the struct to the spreadsheet
+      // Adding the struct to the spreadsheet
       $row = new Row(array_merge($row->getCells(), array_map(fn($value) => Cell::fromValue($value), $authorContent)));
 
       $writer->addRow($row);
