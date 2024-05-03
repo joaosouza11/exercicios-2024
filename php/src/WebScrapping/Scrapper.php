@@ -15,16 +15,16 @@ class Scrapper {
    */
   public function scrap(\DOMDocument $dom): array {
 
-    // Creating an instance to do XPath Queries
+    // Creating an instance to do XPath Queries.
     $xpath = new \DOMXPath($dom);
-    // XPaths of each item
+    // XPaths of each item.
     $paperXPath = "//a[@class='paper-card p-lg bd-gradient-left']";
     $idXPath = ".//div[@class='volume-info']";
     $titleXPath = ".//h4[@class='my-xs paper-title']";
     $typeXPath = ".//div[@class='tags mr-sm']";
     $authorXPath = ".//div[@class='authors']/span";
 
-    // Declaring a DOMNodeList object
+    // Declaring a DOMNodeList object.
     $paperNodes = $xpath->query($paperXPath);
     $paperList = [];
 
@@ -33,18 +33,18 @@ class Scrapper {
       $title = $xpath->query($titleXPath, $node)->item(0)->nodeValue;
       $type = $xpath->query($typeXPath, $node)->item(0)->nodeValue;
 
-      // Declaring empty to verify if has more than 1 author
+      // Declaring empty to verify if has more than 1 author.
       $authors = [];
       $authorsNodes = $xpath->query($authorXPath, $node);
 
       foreach ($authorsNodes as $authorNode) {
         $author = $authorNode->nodeValue;
         $institution = $authorNode->getAttribute('title');
-        // Instance with type Person to fill the authors array
+        // Instance with type Person to fill the authors array.
         $authors[] = new Person($author, $institution);
       }
 
-      // Instance with tyoe Paper to fill the papers array
+      // Instance with tyoe Paper to fill the papers array.
       $paper = new Paper($id, $title, $type, $authors);
       $papers[] = $paper;
     }
