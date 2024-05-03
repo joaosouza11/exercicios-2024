@@ -14,7 +14,7 @@ class Scrapper {
    * Loads paper information from the HTML and returns the array with the data.
    */
   public function scrap(\DOMDocument $dom): array {
-    
+
     # Creating an instance to do XPath Queries
     $xpath = new \DOMXPath($dom);
     # XPaths of each item
@@ -43,3 +43,13 @@ class Scrapper {
         # Instance with type Person to fill the authors array
         $authors[] = new Person($author, $institution);
       }
+
+      # Instance with tyoe Paper to fill the papers array
+      $paper = new Paper($id, $title, $type, $authors);
+      $papers[] = $paper;
+    }
+
+    return $papers;
+  }
+
+}
