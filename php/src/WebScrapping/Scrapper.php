@@ -46,10 +46,10 @@ class Scrapper {
 
       // Instance with tyoe Paper to fill the papers array.
       $paper = new Paper($id, $title, $type, $authors);
-      $papers[] = $paper;
+      $paperList[] = $paper;
     }
 
-    return $papers;
+    return $paperList;
   }
 
 }
