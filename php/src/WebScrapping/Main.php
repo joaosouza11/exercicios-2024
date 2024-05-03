@@ -2,6 +2,10 @@
 
 namespace Chuva\Php\WebScrapping;
 
+use OpenSpout\Writer\XLSX\Writer;
+use OpenSpout\Common\Entity\Cell;
+use OpenSpout\Common\Entity\Row;
+
 /**
  * Runner for the Webscrapping exercice.
  */
